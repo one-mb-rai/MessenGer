@@ -26,6 +26,7 @@
 
 **ScreenShots**
 **ICON**
+<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9" width="100" height="100">
 ![Screenshot_2024-02-01-16-04-55-13_4dc371bb569e0cd6e7cfb17dc1b2fa8f](https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9 | width="200" height="400")
 **List View**
 ![Screenshot_2024-02-01-16-04-21-40_4dc371bb569e0cd6e7cfb17dc1b2fa8f](https://github.com/one-mb-rai/MessenGer/assets/16004196/14052597-ded4-44d6-a153-fed96557e177)
