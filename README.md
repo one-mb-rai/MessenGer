@@ -23,8 +23,10 @@
 7. **Add Topbar for Both**
     - [X] Complete the top bar design and functionality for both the message list and message view screens.
 
-
 **ScreenShots**
-<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9" width="350" height="800">
-<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/14052597-ded4-44d6-a153-fed96557e177" width="350" height="800">
-<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/8fc18700-74ee-4a65-b393-2c780e3c4ece" width="350" height="800">
+<div style="display: flex; justify-content: space-between;">
+    <img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9" width="250" height="500">
+    <img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/14052597-ded4-44d6-a153-fed96557e177" width="250" height="500">
+    <img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/8fc18700-74ee-4a65-b393-2c780e3c4ece" width="250" height="500">
+</div>
+
