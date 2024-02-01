@@ -1,14 +1,18 @@
 package com.onemb.messengeros
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,7 +34,7 @@ import com.onemb.messengeros.components.MessageView
 import com.onemb.messengeros.model.SMSMessage
 import com.onemb.messengeros.model.parsedDate
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationScreen(args: NavHostController, senderName: String?) {
 
@@ -58,14 +62,14 @@ fun ConversationScreen(args: NavHostController, senderName: String?) {
     }
 
 // Example usage:
-
+    val darkTheme: Boolean = isSystemInDarkTheme()
 
     Scaffold(
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White,
-                    titleContentColor = Color.Black,
+                    containerColor = if(darkTheme) Color(0xFF2B201D) else Color(0xFFF9F2F5),
+                    titleContentColor = if(darkTheme) Color(0xFFF9F2F5) else Color(0xFF2B201D),
                 ),
                 title = {
                     if (senderName != null) {
@@ -75,11 +79,20 @@ fun ConversationScreen(args: NavHostController, senderName: String?) {
                             overflow = TextOverflow.Ellipsis
                         )
                     }
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        args.popBackStack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Outlined.ArrowBack,
+                            contentDescription = "Back Button",
+                        )
+                    }
                 }
             )
         },
     ) { innerPadding ->
-//        senderName?.let { Text(modifier = Modifier.padding(innerPadding), text = it) }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -116,7 +129,4 @@ fun ConversationScreen(args: NavHostController, senderName: String?) {
             }
         }
     }
-
-//    MessageView(message = smsMessage)
-//    TopBar(allMessages, {}, "Messages", true)
 }

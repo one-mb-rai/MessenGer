@@ -2,10 +2,8 @@ package com.onemb.messengeros.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,13 +17,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.onemb.messengeros.messageList
 import com.onemb.messengeros.model.SMSMessage
@@ -34,30 +27,17 @@ import com.onemb.messengeros.model.SMSMessage
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(allMessages: SnapshotStateMap<String, List<SMSMessage>>, title: String, showAction: Boolean, navController: NavHostController) {
+    val darkTheme: Boolean = isSystemInDarkTheme()
     Scaffold(
         topBar = {
             Box(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
-                    .drawBehind {
-                        // Add a border-bottom to the TopAppBar
-                        drawLine(
-                            brush = Brush.horizontalGradient(listOf(Color.Gray, Color.Transparent)),
-                            start = Offset(0f, size.height),
-                            end = Offset(size.width, size.height),
-                            strokeWidth = 1f
-                        )
-                    }
             ) {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Transparent, // Set the container color to transparent
-                        titleContentColor = Color.Black,
-                    ),
-                    modifier = Modifier.border(
-                        width = 1.dp,
-                        color = Color.Gray,
-                        shape = MaterialTheme.shapes.small
+                        containerColor = if(darkTheme) Color(0xFF2B201D) else Color(0xFFF9F2F5),
+                        titleContentColor = if(darkTheme) Color(0xFFF9F2F5) else Color(0xFF2B201D),
                     ),
                     title = {
                         Text(

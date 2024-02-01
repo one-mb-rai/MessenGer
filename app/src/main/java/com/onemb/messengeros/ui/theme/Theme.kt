@@ -17,13 +17,13 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFFFFE4E1),
+    primary = Color(0xFF2B201D),
     secondary = PurpleGrey80,
     tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFFFFE4E1),
+    primary = Color(0xFFF9F2F5),
     secondary = PurpleGrey40,
     tertiary = Pink40,
 
@@ -56,8 +56,8 @@ fun MessenGerTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = if(darkTheme) Color.White.toArgb() else Color.Black.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            window.statusBarColor = if(darkTheme) Color(0xFF2B201D).toArgb() else Color(0xFFF9F2F5).toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
