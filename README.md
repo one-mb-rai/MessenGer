@@ -26,9 +26,8 @@
 
 **ScreenShots**
 **ICON**
-<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9" width="100" height="100">
-![Screenshot_2024-02-01-16-04-55-13_4dc371bb569e0cd6e7cfb17dc1b2fa8f](https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9 | width="200" height="400")
+<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9" width="350" height="800">
 **List View**
-![Screenshot_2024-02-01-16-04-21-40_4dc371bb569e0cd6e7cfb17dc1b2fa8f](https://github.com/one-mb-rai/MessenGer/assets/16004196/14052597-ded4-44d6-a153-fed96557e177)
+<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/14052597-ded4-44d6-a153-fed96557e177" width="350" height="800">
 **Message Detail**
-![Screenshot_2024-02-01-16-04-14-01_b783bf344239542886fee7b48fa4b892](https://github.com/one-mb-rai/MessenGer/assets/16004196/8fc18700-74ee-4a65-b393-2c780e3c4ece)
+<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/8fc18700-74ee-4a65-b393-2c780e3c4ece" width="350" height="800">
