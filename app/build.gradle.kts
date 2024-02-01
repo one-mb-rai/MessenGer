@@ -54,6 +54,7 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-permissions:0.31.5-beta")
     // Compose Navigation
     implementation ("androidx.navigation:navigation-compose:2.7.6")
+    implementation ("com.google.code.gson:gson:2.10")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")

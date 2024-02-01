@@ -27,7 +27,7 @@ fun MessageView(message: SMSMessage) {
     ) {
         Surface(
             modifier = Modifier
-                .fillMaxWidth(0.7f)
+                .fillMaxWidth(0.85f)
                 .padding(all = 10.dp),
             shape = RoundedCornerShape(size = 12.dp),
             color = if (message.type == 1) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.primary
