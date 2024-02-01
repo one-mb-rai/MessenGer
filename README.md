@@ -26,8 +26,10 @@
 
 **ScreenShots**
 **ICON**
-<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9" width="350" height="800">
+    - <img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/09918bfc-6ae7-4ccc-840e-7819234a5ed9" width="350" height="800">
+
 **List View**
-<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/14052597-ded4-44d6-a153-fed96557e177" width="350" height="800">
+    - <img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/14052597-ded4-44d6-a153-fed96557e177" width="350" height="800">
+
 **Message Detail**
-<img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/8fc18700-74ee-4a65-b393-2c780e3c4ece" width="350" height="800">
+    - <img src="https://github.com/one-mb-rai/MessenGer/assets/16004196/8fc18700-74ee-4a65-b393-2c780e3c4ece" width="350" height="800">
