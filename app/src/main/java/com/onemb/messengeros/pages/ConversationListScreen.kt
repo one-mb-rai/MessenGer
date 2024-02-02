@@ -1,5 +1,6 @@
 package com.onemb.messengeros.pages
 
+import SmsViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateMap
@@ -29,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.onemb.messengeros.components.MessageView
 import com.onemb.messengeros.model.SMSMessage
@@ -37,32 +40,17 @@ import com.onemb.messengeros.model.readMessages
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConversationListScreen(args: NavHostController, senderName: String?) {
+fun ConversationListScreen(args: NavHostController, senderName: String?, viewModel: SmsViewModel = viewModel()) {
 
-    val context = LocalContext.current
-    val allMessages = remember { mutableStateMapOf<String, List<SMSMessage>>() }
     val listState = rememberLazyListState()
+    val filteredSmsList = senderName?.let { viewModel.filterSmsList(it) }
 
-    LaunchedEffect(key1 = Unit) {
-        val messages =
-            readMessages(context = context, type = "inbox") + readMessages(
-                context = context,
-                type = "all"
-            )
-        allMessages += messages.sortedBy { it.date }.groupBy { it.sender }
-        listState.scrollToItem(allMessages.values.flatten().size - 1)
-    }
 
-    fun filterMessagesBySenderName(
-        messagesMap: SnapshotStateMap<String, List<SMSMessage>>,
-        senderNameToFilter: String
-    ): Map<String, List<SMSMessage>> {
-        return messagesMap.filterValues { messagesList ->
-            messagesList.any { it.sender == senderNameToFilter }
+    LaunchedEffect(key1 = filteredSmsList) {
+        if (filteredSmsList?.isNotEmpty() == true) {
+            listState.scrollToItem(Int.MAX_VALUE)
         }
     }
-
-// Example usage:
     val darkTheme: Boolean = isSystemInDarkTheme()
 
     Scaffold(
@@ -97,15 +85,11 @@ fun ConversationListScreen(args: NavHostController, senderName: String?) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.surface).padding(innerPadding),
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(innerPadding),
             state = listState
         ) {
-            senderName?.let {
-                filterMessagesBySenderName(
-                    allMessages,
-                    it
-                )
-            }?.forEach { (_, messages) ->
+            filteredSmsList?.forEach { (_, messages) ->
                 messages.groupBy { it.date.parsedDate().split(" ").first() }
                     .forEach { (date, smsMessage) ->
                         item {

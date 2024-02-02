@@ -1,7 +1,8 @@
 package com.onemb.messengeros.pages
 
 import SenderView
-import android.util.Log
+import SmsViewModel
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,11 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -37,22 +32,24 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.onemb.messengeros.model.SMSMessage
 import com.onemb.messengeros.navigation.Screen
-import com.onemb.messengeros.model.readMessages
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.flow.StateFlow
 
+
+@SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MessagesListScreen(navController: NavHostController) {
-    val context = LocalContext.current
-    val allMessages = remember { mutableStateMapOf<String, List<SMSMessage>>() }
+fun MessagesListScreen(navController: NavHostController, viewModel: SmsViewModel = viewModel()) {
+    val allMessages = viewModel.smsList
     val darkTheme: Boolean = isSystemInDarkTheme()
 
-    LaunchedEffect(key1 = Unit) {
-        val messages = readMessages(context = context, type = "inbox") + readMessages(
-            context = context,
-            type = "all"
-        )
-        allMessages += messages.sortedByDescending { it.date }.groupBy { it.sender }
-    }
+//    LaunchedEffect(key1 = Unit) {
+//        val messages = readMessages(context = context, type = "inbox") + readMessages(
+//            context = context,
+//            type = "all"
+//        )
+//        allMessages += messages.sortedByDescending { it.date }.groupBy { it.sender }
+//    }
 
     Scaffold(
         topBar = {
@@ -84,7 +81,7 @@ fun MessagesListScreen(navController: NavHostController) {
             }
         },
     ) { innerPadding -> 
-            if(allMessages.size > 0) {
+            if(allMessages.value.isNotEmpty()) {
                 messageList(allMessages, innerPadding, navController)
             } else {
                 Text(text = "Loading ...")    
@@ -93,9 +90,9 @@ fun MessagesListScreen(navController: NavHostController) {
 }
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun messageList(allMessages: SnapshotStateMap<String, List<SMSMessage>>, innerPadding: PaddingValues, navController: NavHostController) {
-    val allMessagesList = remember { mutableStateOf(allMessages.entries.sortedByDescending { entry -> entry.value.maxOfOrNull { it.date } ?: 0})}
+fun messageList(allMessages: StateFlow<Map<String, List<SMSMessage>>>, innerPadding: PaddingValues, navController: NavHostController) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -107,13 +104,13 @@ fun messageList(allMessages: SnapshotStateMap<String, List<SMSMessage>>, innerPa
             )
     ) {
         items(
-            count = allMessagesList.value.size,
+            count = allMessages.value.size,
             key = {
-                allMessagesList.value.toList()[it].key
+                allMessages.value.toList()[it]
             },
             itemContent = {index ->
-                val dataIndex = allMessagesList.value.toList()[index].key
-                val dataValue = allMessagesList.value.toList()[index].value
+                val dataIndex = allMessages.value.toList()[index].first
+                val dataValue = allMessages.value.toList()[index].second
                 SenderListItem(sender = dataIndex, messages = dataValue, navController)
             }
         )
