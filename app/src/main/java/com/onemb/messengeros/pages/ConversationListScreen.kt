@@ -1,4 +1,4 @@
-package com.onemb.messengeros
+package com.onemb.messengeros.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -33,10 +33,11 @@ import androidx.navigation.NavHostController
 import com.onemb.messengeros.components.MessageView
 import com.onemb.messengeros.model.SMSMessage
 import com.onemb.messengeros.model.parsedDate
+import com.onemb.messengeros.model.readMessages
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConversationScreen(args: NavHostController, senderName: String?) {
+fun ConversationListScreen(args: NavHostController, senderName: String?) {
 
     val context = LocalContext.current
     val allMessages = remember { mutableStateMapOf<String, List<SMSMessage>>() }

@@ -1,4 +1,4 @@
-package com.onemb.messengeros
+package com.onemb.messengeros.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

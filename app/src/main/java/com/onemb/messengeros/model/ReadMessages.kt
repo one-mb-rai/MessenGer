@@ -1,8 +1,7 @@
-package com.onemb.messengeros
+package com.onemb.messengeros.model
 
 import android.content.Context
 import android.net.Uri
-import com.onemb.messengeros.model.SMSMessage
 
 fun readMessages(context: Context, type: String): List<SMSMessage> {
     val messages = mutableListOf<SMSMessage>()

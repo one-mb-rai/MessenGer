@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.onemb.messengeros.ConversationScreen
-import com.onemb.messengeros.MainScreen
-import com.onemb.messengeros.PermissionScreen
+import com.onemb.messengeros.pages.ConversationListScreen
+import com.onemb.messengeros.pages.MessagesListScreen
+import com.onemb.messengeros.pages.PermissionScreen
 
 @Composable
 fun SetupNavGraph(
@@ -27,11 +27,11 @@ fun SetupNavGraph(
         }
 
         composable(route = Screen.Main.route) {
-            MainScreen (navController = navController)
+            MessagesListScreen (navController = navController)
         }
 
         composable(Screen.Conversation.route+ "/{senderName}") {backStackEntry ->
-            ConversationScreen (navController, backStackEntry.arguments?.getString("senderName"))
+            ConversationListScreen (navController, backStackEntry.arguments?.getString("senderName"))
         }
     }
 }

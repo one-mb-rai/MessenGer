@@ -19,7 +19,7 @@ fun SenderView(sender: String, messages: List<SMSMessage>) {
     val latestMessage = rememberUpdatedState(newValue = messages.maxByOrNull { it.date })
 
     LazyColumn(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         item {
             SenderHeader(sender = sender, latestMessage = latestMessage.value)
@@ -34,6 +34,7 @@ fun SenderView(sender: String, messages: List<SMSMessage>) {
 @Composable
 fun SenderHeader(sender: String, latestMessage: SMSMessage?) {
     Row(
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -41,11 +42,13 @@ fun SenderHeader(sender: String, latestMessage: SMSMessage?) {
             text = sender,
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurface,
+            overflow = TextOverflow.Ellipsis
         )
         Text(
-            text = latestMessage?.date?.parsedDate()?.split(" ")?.get(1) ?: "",
-            color = Color.Gray
+            text = latestMessage?.date?.parsedDate() ?: "",
+            color = Color.Gray,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

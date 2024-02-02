@@ -1,4 +1,4 @@
-package com.onemb.messengeros
+package com.onemb.messengeros.pages
 
 import android.os.Parcel
 import android.os.Parcelable
