@@ -1,6 +1,7 @@
 package com.onemb.messengeros.pages
 
 import SenderView
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +26,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
@@ -44,11 +47,10 @@ fun MessagesListScreen(navController: NavHostController) {
     val darkTheme: Boolean = isSystemInDarkTheme()
 
     LaunchedEffect(key1 = Unit) {
-        val messages =
-            readMessages(context = context, type = "inbox") + readMessages(
-                context = context,
-                type = "all"
-            )
+        val messages = readMessages(context = context, type = "inbox") + readMessages(
+            context = context,
+            type = "all"
+        )
         allMessages += messages.sortedByDescending { it.date }.groupBy { it.sender }
     }
 
@@ -81,12 +83,19 @@ fun MessagesListScreen(navController: NavHostController) {
                 )
             }
         },
-    ) { innerPadding -> messageList(allMessages, innerPadding, navController) }
+    ) { innerPadding -> 
+            if(allMessages.size > 0) {
+                messageList(allMessages, innerPadding, navController)
+            } else {
+                Text(text = "Loading ...")    
+            }
+    }
 }
 
 
 @Composable
 fun messageList(allMessages: SnapshotStateMap<String, List<SMSMessage>>, innerPadding: PaddingValues, navController: NavHostController) {
+    val allMessagesList = remember { mutableStateOf(allMessages.entries.sortedByDescending { entry -> entry.value.maxOfOrNull { it.date } ?: 0})}
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -97,13 +106,17 @@ fun messageList(allMessages: SnapshotStateMap<String, List<SMSMessage>>, innerPa
                 bottom = 10.dp
             )
     ) {
-        allMessages.entries.sortedByDescending { entry ->
-            entry.value.maxOfOrNull { it.date } ?: 0
-        }.forEach { (sender, messages) ->
-            item(key = sender) {
-                SenderListItem(sender = sender, messages = messages, navController)
+        items(
+            count = allMessagesList.value.size,
+            key = {
+                allMessagesList.value.toList()[it].key
+            },
+            itemContent = {index ->
+                val dataIndex = allMessagesList.value.toList()[index].key
+                val dataValue = allMessagesList.value.toList()[index].value
+                SenderListItem(sender = dataIndex, messages = dataValue, navController)
             }
-        }
+        )
     }
 }
 
