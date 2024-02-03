@@ -6,6 +6,6 @@ sealed class Screen(val route: String) {
 
     object Conversation : Screen(route = "message_detail") {
         const val ARG_CONVERSATION = "conversationArgs"
-        const val argumentName = "senderName"
+        const val ARGUMENT_NAME = "senderName"
     }
 }

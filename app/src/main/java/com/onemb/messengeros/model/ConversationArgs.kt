@@ -1,14 +1,10 @@
-package com.onemb.messengeros.pages
+package com.onemb.messengeros.model
 
 import android.os.Parcel
 import android.os.Parcelable
 
-data class ConversationArgs(
-    val senderName: String?
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-    ) {
+data class ConversationArgs(val senderName: String?) : Parcelable {
+    constructor(parcel: Parcel) : this(parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

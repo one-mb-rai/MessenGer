@@ -3,6 +3,7 @@ package com.onemb.messengeros.pages
 import SenderView
 import SmsViewModel
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -26,13 +27,13 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.onemb.messengeros.model.SMSMessage
 import com.onemb.messengeros.navigation.Screen
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.onemb.messengeros.model.ConversationArgs
 import kotlinx.coroutines.flow.StateFlow
 
 
@@ -43,13 +44,6 @@ fun MessagesListScreen(navController: NavHostController, viewModel: SmsViewModel
     val allMessages = viewModel.smsList
     val darkTheme: Boolean = isSystemInDarkTheme()
 
-//    LaunchedEffect(key1 = Unit) {
-//        val messages = readMessages(context = context, type = "inbox") + readMessages(
-//            context = context,
-//            type = "all"
-//        )
-//        allMessages += messages.sortedByDescending { it.date }.groupBy { it.sender }
-//    }
 
     Scaffold(
         topBar = {
@@ -119,11 +113,15 @@ fun messageList(allMessages: StateFlow<Map<String, List<SMSMessage>>>, innerPadd
 
 @Composable
 fun SenderListItem(sender: String, messages: List<SMSMessage>, navController: NavHostController) {
+
     Column(
         modifier = Modifier
             .height(70.dp)
             .clickable {
-                navController.navigate("${Screen.Conversation.route}/${sender}")
+                val conversationArgs = ConversationArgs(sender)
+                navController.navigate(Screen.Conversation.route + "/${conversationArgs.senderName}")
+                Log.d("MyApp", "Sending ConversationArgs: $conversationArgs")
+
             },
     ) {
         SenderView(sender = sender, messages = messages)

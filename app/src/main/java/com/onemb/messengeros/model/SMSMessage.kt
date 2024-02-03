@@ -1,5 +1,6 @@
 package com.onemb.messengeros.model
 
+import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -12,7 +13,7 @@ data class SMSMessage(
     val type: Int,
     val thread: Int,
     val service: String
-)
+) : Serializable
 
 fun Long.parsedDate(): String {
     val date = Date(this)
