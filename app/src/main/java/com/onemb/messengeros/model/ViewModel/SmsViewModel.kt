@@ -1,6 +1,7 @@
 import android.app.Application
 import android.content.ContentResolver
 import android.provider.Telephony
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.onemb.messengeros.model.SMSMessage
@@ -9,12 +10,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.State
 
 class SmsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _smsList = MutableStateFlow<Map<String, List<SMSMessage>>>(emptyMap())
     val smsList: StateFlow<Map<String, List<SMSMessage>>> get() = _smsList
 
+    private val _searchedSmsList = mutableStateOf<Map<String, List<SMSMessage>>>(emptyMap())
+    val searchedSmsList: State<Map<String, List<SMSMessage>>> get() = _searchedSmsList
     init {
         loadSms()
     }
@@ -105,4 +109,13 @@ class SmsViewModel(application: Application) : AndroidViewModel(application) {
             _smsList.value
         }
     }
+
+    fun searchSms(query: String) {
+        val matchingSmsMap = _smsList.value.filterKeys { it.contains(query, ignoreCase = true) }
+            .mapValues { entry ->
+                entry.value.sortedBy { it.date }
+            }
+        _searchedSmsList.value = matchingSmsMap
+    }
+
 }

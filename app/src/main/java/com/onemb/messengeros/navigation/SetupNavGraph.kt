@@ -7,7 +7,9 @@ import androidx.navigation.compose.composable
 import com.onemb.messengeros.model.ConversationArgs
 import com.onemb.messengeros.pages.ConversationListScreen
 import com.onemb.messengeros.pages.MessagesListScreen
+import com.onemb.messengeros.pages.NewConversationScreen
 import com.onemb.messengeros.pages.PermissionScreen
+import com.onemb.messengeros.pages.SearchScreen
 
 @Composable
 fun SetupNavGraph(
@@ -28,9 +30,16 @@ fun SetupNavGraph(
         }
 
         composable(route = Screen.Main.route) {
-            MessagesListScreen (navController = navController)
+            MessagesListScreen(navController = navController)
         }
 
+        composable(route = Screen.Search.route) {
+            SearchScreen(navController)
+        }
+
+        composable(route = Screen.NewConversation.route) {
+            NewConversationScreen()
+        }
 
         composable(route = Screen.Conversation.route + "/{senderName}") { backStackEntry ->
             val conversationArgs = ConversationArgs(backStackEntry.arguments?.getString(Screen.Conversation.ARGUMENT_NAME))
