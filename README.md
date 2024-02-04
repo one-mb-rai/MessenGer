@@ -3,7 +3,7 @@
 # Todo List for My Repository
 
 1. **Add Search Functionality**
-    - [ ] Implement a search feature to allow users to search for messages or contacts.
+    - [X] Implement a search feature to allow users to search for messages or contacts.
 
 2. **Add Message Send Functionality**
     - [ ] Implement the functionality to send messages within the app.
