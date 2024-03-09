@@ -106,7 +106,7 @@ fun MessagesListScreen(navController: NavHostController, viewModel: SmsViewModel
         },
     ) { innerPadding ->
             if(allMessages.value.isNotEmpty()) {
-                messageList(allMessages, innerPadding, navController)
+                MessageList(allMessages, innerPadding, navController)
             } else {
                 Text(text = "Loading ...")    
             }
@@ -116,7 +116,7 @@ fun MessagesListScreen(navController: NavHostController, viewModel: SmsViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun messageList(allMessages: StateFlow<Map<String, List<SMSMessage>>>, innerPadding: PaddingValues, navController: NavHostController) {
+fun MessageList(allMessages: StateFlow<Map<String, List<SMSMessage>>>, innerPadding: PaddingValues, navController: NavHostController) {
     Scaffold(
         modifier = Modifier.padding(innerPadding),
         floatingActionButton = {
@@ -150,15 +150,12 @@ fun messageList(allMessages: StateFlow<Map<String, List<SMSMessage>>>, innerPadd
 
 @Composable
 fun SenderListItem(sender: String, messages: List<SMSMessage>, navController: NavHostController) {
-
     Column(
         modifier = Modifier
             .height(70.dp)
             .clickable {
                 val conversationArgs = ConversationArgs(sender)
                 navController.navigate(Screen.Conversation.route + "/${conversationArgs.senderName}")
-                Log.d("MyApp", "Sending ConversationArgs: $conversationArgs")
-
             },
     ) {
         SenderView(sender = sender, messages = messages)

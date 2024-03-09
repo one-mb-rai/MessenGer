@@ -1,6 +1,8 @@
 import android.app.Application
 import android.content.ContentResolver
 import android.provider.Telephony
+import android.telephony.SmsManager
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,6 +33,7 @@ class SmsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun fetchSms(): Map<String, List<SMSMessage>> {
+        Log.d("ID", SmsManager.getDefault().carrierConfigValues.toString())
         val smsInboxUri = Telephony.Sms.Inbox.CONTENT_URI
         val smsSentUri = Telephony.Sms.Sent.CONTENT_URI
         val contentResolver: ContentResolver = getApplication<Application>().contentResolver

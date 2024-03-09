@@ -2,8 +2,11 @@ package com.onemb.messengeros.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,16 +40,23 @@ fun NewConversationScreen() {
                     titleContentColor = if(darkTheme) Color(0xFFF9F2F5) else Color(0xFF2B201D),
                 ),
                 title = {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.Bottom
+                    Column(
+                        modifier  = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "To: ")
-                        TextField(
-                            value = "",
-                            onValueChange = {},
-                            modifier = Modifier.background(color = Color.Transparent)
-                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(46.dp),
+                            verticalAlignment = Alignment.Bottom
+                        ) {
+                            Text(text = "To: ")
+                            TextField(
+                                value = "Hi",
+                                onValueChange = {},
+//                                modifier = Modifier.background(color = Color.Transparent)
+                            )
+                        }
                     }
                 },
                 navigationIcon = {

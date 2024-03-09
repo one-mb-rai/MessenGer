@@ -140,7 +140,6 @@ fun SmsList(smsList: Map<String, List<SMSMessage>>, navController: NavHostContro
             .padding(top = 16.dp),
     ){
         smsList.entries.forEach { (sender, messages) ->
-            // Display each sender and their messages
             SenderListItem(
                 sender = sender,
                 messages = messages,
